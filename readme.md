@@ -40,7 +40,7 @@ This command will execute the database migrations to create the required tables.
 **To start the server, run the following command:**
 npm start
 
-*The server will start running on port 3000. You should see a message in the console indicating that the server is running.
+The server will start running on port 3000. You should see a message in the console indicating that the server is running.
 
 Accessing the API
 You can access the API endpoints using a tool like Postman or cURL. Here are a few example requests:
@@ -48,7 +48,7 @@ You can access the API endpoints using a tool like Postman or cURL. Here are a f
 Get all users: GET http://localhost:3000/users
 <br>
 Get a specific user: GET http://localhost:3000/users/{id}
-Replace {id} with the ID of the user you want to retrieve.*
+Replace {id} with the ID of the user you want to retrieve.
 
 **Shutting Down the Server
 To stop the server and the MySQL database server, run the following command:**
