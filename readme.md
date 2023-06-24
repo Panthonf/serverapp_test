@@ -12,10 +12,10 @@ Make sure you have the following software installed on your system:
 ## Setup
 
 **Clone this repository to your local machine:**
-<br>git clone https://github.com/your-username/server-application.git
+<br>git clone https://github.com/Panthonf/serverapp_test.git
 
 **Navigate to the project directory:**
-<br>cd server-application
+<br>cd serverapp_test
 
 **Install the dependencies:**
 <br>npm install
