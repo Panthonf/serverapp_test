@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import { getUsers, getUserById, User } from "../models/User";
 
 export async function getAllUsers(req: Request, res: Response): Promise<void> {
-  const users: User[] = await getUsers();
-  res.json(users);
+  // const users: User[] = await getUsers();
+  res.json({ ddd: "dddd" });
 }
 
 export async function getUser(req: Request, res: Response): Promise<void> {
