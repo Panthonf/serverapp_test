@@ -1,11 +1,22 @@
-import express from "express";
+import express, { Application, Request, Response, NextFunction } from "express";
 import userRoutes from "./routes/users";
 
-const app = express();
-const port = 3000;
+const app: Application = express();
+const port: string | number = process.env.PORT || 3000;
 
+// Middleware
+app.use(express.json());
+
+// Routes
 app.use("/users", userRoutes);
 
+// Error handling middleware
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  console.error(err.stack);
+  res.status(500).json({ message: "Internal Server Error" });
+});
+
+// Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
