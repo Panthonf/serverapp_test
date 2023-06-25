@@ -1,18 +1,11 @@
 import express from "express";
-import { Request, Response } from "express";
-import { getAllUsers, getUser } from "./controllers/UserController";
-import usersRouter from "./routes/users";
+import userRoutes from "./routes/users";
+
 const app = express();
+const port = 3000;
 
-app.use(express.json());
+app.use("/users", userRoutes);
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Hello, World!");
-});
-
-// Use route files as middleware
-app.use('/users', usersRouter);
-
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
