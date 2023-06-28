@@ -1,31 +1,24 @@
-import { ConnectionPool } from "mssql";
+import mysql from "mysql2";
 
 const config = {
-  server: "serverapp_production.database.windows.net",
-  database: "serverapp",
-  authentication: {
-    type: "default",
-    options: {
-      userName: "panthon",
-      password: "Kansap160900_",
-    },
-  },
-  options: {
-    encrypt: true,
-    trustServerCertificate: false,
-  },
+  host: "panthon.database.windows.net",
+  user: "Panthon",
+  password: "kansap160900_",
+  database: "panthon",
 };
 
-const dbPool = new ConnectionPool(config);
+const dbPool = mysql.createPool(config).promise();
 
 dbPool
-  .connect()
+  .getConnection()
   .then(() => {
     console.log("Connected to Azure SQL Database");
-    // Now you can execute your queries or start your server
+
+    // Perform your queries or start your server here
   })
-  .catch((err: Error) => {
-    console.error("Error connecting to Azure SQL Database:", err.message);
+  .catch((err) => {
+    console.error("Error connecting to Azure SQL Database:", err);
+    process.exit(1); // Exit the process with an error code
   });
 
 export default dbPool;
