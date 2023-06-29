@@ -4,14 +4,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mssql_1 = __importDefault(require("mssql"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const config = {
-    user: "Panthon",
-    password: "kansap160900_",
-    server: "panthon.database.windows.net",
-    database: "panthon",
+    user: process.env.DB_USER || "",
+    password: process.env.DB_PASSWORD || "",
+    server: process.env.DB_SERVER || "",
+    database: process.env.DB_DATABASE || "",
+    port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 1433,
     options: {
         encrypt: true,
-        trustServerCertificate: true, // Accept self-signed certificates (for development/testing only)
+        trustServerCertificate: true,
     },
 };
 const dbPool = new mssql_1.default.ConnectionPool(config);
@@ -23,6 +26,6 @@ dbPool
 })
     .catch((err) => {
     console.error("Error connecting to Azure SQL Database:", err);
-    process.exit(1); // Exit the process with an error code
+    process.exit(1);
 });
 exports.default = dbPool;
