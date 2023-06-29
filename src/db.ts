@@ -1,16 +1,20 @@
-import mysql from "mysql2";
+import sql from "mssql";
 
 const config = {
-  host: "panthon.database.windows.net",
   user: "Panthon",
   password: "kansap160900_",
+  server: "panthon.database.windows.net",
   database: "panthon",
+  options: {
+    encrypt: true, // Enable encryption for secure connection
+    trustServerCertificate: true, // Accept self-signed certificates (for development/testing only)
+  },
 };
 
-const dbPool = mysql.createPool(config).promise();
+const dbPool = new sql.ConnectionPool(config);
 
 dbPool
-  .getConnection()
+  .connect()
   .then(() => {
     console.log("Connected to Azure SQL Database");
 

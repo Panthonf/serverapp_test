@@ -4,24 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const User_1 = require("../models/User");
+const UserController_1 = require("../controllers/UserController");
 const router = express_1.default.Router();
-// GET /users
-router.get("/", (req, res) => {
-    (0, User_1.getUsers)((users) => {
-        res.json(users);
-    });
-});
-// GET /users/:id
-router.get("/:id", (req, res) => {
-    const userId = parseInt(req.params.id, 10);
-    (0, User_1.getUserById)(userId, (user) => {
-        if (user) {
-            res.json(user);
-        }
-        else {
-            res.status(404).json({ error: "User not found" });
-        }
-    });
-});
+router.get("/", UserController_1.getAllUsers);
+router.get("/:id", UserController_1.getUser);
 exports.default = router;

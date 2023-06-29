@@ -1,19 +1,12 @@
 import dbPool from "../db";
+import { Request } from "mssql";
 
-export interface User {
-  id: number;
-  name: string;
-  email: string;
-}
-
-export async function getUsers(): Promise<User[]> {
+export async function getUsers(): Promise<any[]> {
   try {
-    const query = "SELECT * FROM users";
-    const result = await dbPool.query(query);
-    return result.recordset.map((row: any) => ({
-      id: row.id,
-      name: row.name,
-      email: row.email,
+    const result = await dbPool.query("SELECT * FROM users");
+    return result.recordset.map(({ firstName, lastName }) => ({
+      firstName,
+      lastName,
     }));
   } catch (error) {
     console.error("Error retrieving users:", error);
@@ -21,17 +14,14 @@ export async function getUsers(): Promise<User[]> {
   }
 }
 
-export async function getUserById(id: number): Promise<User | undefined> {
+export async function getUserById(id: number): Promise<any | undefined> {
   try {
-    const query = "SELECT * FROM users WHERE id = @id";
-    const result = await dbPool.request().input("id", id).query(query);
-    const row = result.recordset[0];
+    const request = new Request(dbPool);
+    request.input("id", id);
+    const result = await request.query("SELECT * FROM users WHERE id = @id");
+    const [row] = result.recordset;
     return row
-      ? {
-          id: row.id,
-          name: row.name,
-          email: row.email,
-        }
+      ? { firstName: row.firstName, lastName: row.lastName }
       : undefined;
   } catch (error) {
     console.error("Error retrieving user:", error);

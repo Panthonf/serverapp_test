@@ -3,18 +3,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const mysql_1 = __importDefault(require("mysql"));
-const connection = mysql_1.default.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "panthon",
+const mssql_1 = __importDefault(require("mssql"));
+const config = {
+    user: "Panthon",
+    password: "kansap160900_",
+    server: "panthon.database.windows.net",
     database: "panthon",
+    options: {
+        encrypt: true,
+        trustServerCertificate: true, // Accept self-signed certificates (for development/testing only)
+    },
+};
+const dbPool = new mssql_1.default.ConnectionPool(config);
+dbPool
+    .connect()
+    .then(() => {
+    console.log("Connected to Azure SQL Database");
+    // Perform your queries or start your server here
+})
+    .catch((err) => {
+    console.error("Error connecting to Azure SQL Database:", err);
+    process.exit(1); // Exit the process with an error code
 });
-connection.connect((err) => {
-    if (err) {
-        console.error("Error connecting to database:", err.message);
-        return;
-    }
-    console.log("Connected to the database");
-});
-exports.default = connection;
+exports.default = dbPool;
