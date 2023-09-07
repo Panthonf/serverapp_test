@@ -16,6 +16,7 @@ const config = {
         encrypt: true,
         trustServerCertificate: true,
     },
+    
 };
 const dbPool = new mssql_1.default.ConnectionPool(config);
 dbPool

@@ -9,6 +9,7 @@ app.use(express.json());
 
 // Routes
 app.use("/users", userRoutes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Error handling middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
